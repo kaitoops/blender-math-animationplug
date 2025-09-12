@@ -1,5 +1,7 @@
 # Blender数学动画插件
 
+[English Version](README_en.md) | [中文版本](README.md)
+
 ## 项目简介
 
 这是一个专为Blender设计的数学动画插件，旨在简化数学概念的可视化和动画制作过程。该插件提供了丰富的工具和功能，帮助用户创建高质量的数学教育内容和科学可视化作品。
@@ -56,8 +58,8 @@
 
 ## 文档
 
-- [用户指南](docs/mcp_user_guide.md)
-- [开发者文档](docs/mcp_developer_guide.md)
+- [用户指南 (中文)](docs/mcp_user_guide.md) | [User Guide (English)](docs/mcp_user_guide_en.md)
+- [开发者文档 (中文)](docs/mcp_developer_guide.md) | [Developer Documentation (English)](docs/mcp_developer_guide_en.md)
 
 ## 贡献指南
 
@@ -95,4 +97,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-```

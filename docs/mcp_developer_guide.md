@@ -1,5 +1,7 @@
 # MCP模块开发者文档
 
+[English Version](mcp_developer_guide_en.md) | [中文版本](mcp_developer_guide.md)
+
 ## 架构概述
 
 MCP（Motion Capture）模块采用模块化设计，主要包含以下核心组件：
