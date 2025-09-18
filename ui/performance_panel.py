@@ -41,4 +41,4 @@ class MATH_ANIM_PT_performance_panel(bpy.types.Panel):
         box.prop(perf_props.batch_export, "file_format")
         box.prop(perf_props.batch_export, "start_frame")
         box.prop(perf_props.batch_export, "end_frame")
-        box.operator("math_anim.execute_batch_export")
+        box.operator("math_anim.batch_export")

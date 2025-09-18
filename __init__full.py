@@ -1,14 +1,26 @@
 bl_info = {
-    "name": "Blender数学动画插件",
+    "name": "Blender数学动画插件(完整版)",
     "author": "Gemini",
     "version": (1, 0, 0),
     "blender": (3, 0, 0),
     "location": "3D视图 > UI面板 > 数学动画",
-    "description": "一个用于创建数学动画的集成工具集",
+    "description": "一个用于创建数学动画的集成工具集(完整版)",
     "category": "Object",
 }
 
 import bpy
+
+# 导入所有模块
+from . import core
+from . import objects
+from . import animation
+from . import render
+from . import performance
+from . import workflow
+from . import mcp
+from . import ui
+from . import error_reporter
+from . import properties
 
 # --- UI 面板定义 ---
 
@@ -36,8 +48,6 @@ class MATH_ANIM_OT_save_error_report(bpy.types.Operator):
     filename_ext = ".txt"
 
     def execute(self, context):
-        # 延迟导入error_reporter模块以避免循环导入
-        from . import error_reporter
         if error_reporter.ErrorReporter.save_error_report(self.filepath):
             self.report({'INFO'}, f"错误报告已保存到: {self.filepath}")
         else:
@@ -53,152 +63,184 @@ class MATH_ANIM_OT_save_error_report(bpy.types.Operator):
 # 跟踪已注册的类
 registered_classes = []
 
-# 导入所有模块（放在操作符定义之后以避免循环导入）
-from . import core
-from . import objects
-from . import animation
-from . import render
-from . import performance
-from . import workflow
-from . import mcp
-from . import ui
-from . import error_reporter
-from . import properties
-
 def register():
-    # 检查依赖项 - 使用简化版检查
+    print("注册数学动画插件(完整版)...")
+    
+    # 检查依赖项
     try:
-        from .core.dependency_checker_simple import DependencyChecker
+        from .core.dependency_checker import DependencyChecker
         if not DependencyChecker.check_dependencies():
-            print("警告: 依赖检查未完全通过，但将继续注册插件")
-        else:
-            print("✓ 依赖检查通过")
+            print("依赖检查失败")
+            return
+        print("✓ 依赖检查通过")
     except Exception as e:
-        print(f"依赖检查出现错误，但将继续注册插件: {e}")
-        
+        print(f"✗ 依赖检查失败: {e}")
+        return
+    
     # 注册属性
-    properties.register()
+    try:
+        properties.register()
+        print("✓ 属性注册成功")
+    except Exception as e:
+        print(f"✗ 属性注册失败: {e}")
+        return
     
     # 注册主面板（必须在UI面板之前注册）
     try:
         bpy.utils.register_class(MATH_ANIM_PT_main_panel)
         registered_classes.append(MATH_ANIM_PT_main_panel)
+        print("✓ 主面板注册成功")
     except Exception as e:
-        print(f"注册主面板失败: {e}")
-        
+        print(f"✗ 主面板注册失败: {e}")
+        return
+    
     # 注册核心模块
     try:
         core.register()
+        print("✓ 核心模块注册成功")
     except Exception as e:
-        print(f"注册核心模块失败: {e}")
+        print(f"✗ 核心模块注册失败: {e}")
+    
     # 注册对象模块
     try:
         objects.register()
+        print("✓ 对象模块注册成功")
     except Exception as e:
-        print(f"注册对象模块失败: {e}")
+        print(f"✗ 对象模块注册失败: {e}")
+    
     # 注册动画模块
     try:
         animation.register()
+        print("✓ 动画模块注册成功")
     except Exception as e:
-        print(f"注册动画模块失败: {e}")
+        print(f"✗ 动画模块注册失败: {e}")
+    
     # 注册渲染模块
     try:
         render.register()
+        print("✓ 渲染模块注册成功")
     except Exception as e:
-        print(f"注册渲染模块失败: {e}")
+        print(f"✗ 渲染模块注册失败: {e}")
+    
     # 注册性能模块
     try:
         performance.register()
+        print("✓ 性能模块注册成功")
     except Exception as e:
-        print(f"注册性能模块失败: {e}")
+        print(f"✗ 性能模块注册失败: {e}")
+    
     # 注册工作流模块
     try:
         workflow.register()
+        print("✓ 工作流模块注册成功")
     except Exception as e:
-        print(f"注册工作流模块失败: {e}")
+        print(f"✗ 工作流模块注册失败: {e}")
+    
     # 注册MCP模块
     try:
         mcp.register()
+        print("✓ MCP模块注册成功")
     except Exception as e:
-        print(f"注册MCP模块失败: {e}")
+        print(f"✗ MCP模块注册失败: {e}")
     
     # 注册UI面板（子面板）
     try:
         ui.register()
+        print("✓ UI面板注册成功")
     except Exception as e:
-        print(f"注册UI面板失败: {e}")
+        print(f"✗ UI面板注册失败: {e}")
     
     # 注册错误报告工具
     try:
         bpy.utils.register_class(MATH_ANIM_OT_save_error_report)
         registered_classes.append(MATH_ANIM_OT_save_error_report)
+        print("✓ 错误报告工具注册成功")
     except Exception as e:
-        print(f"注册错误报告工具失败: {e}")
+        print(f"✗ 错误报告工具注册失败: {e}")
 
 def unregister():
+    print("注销数学动画插件(完整版)...")
+    
     # 反注册错误报告工具
     if MATH_ANIM_OT_save_error_report in registered_classes:
         try:
             bpy.utils.unregister_class(MATH_ANIM_OT_save_error_report)
             registered_classes.remove(MATH_ANIM_OT_save_error_report)
+            print("✓ 错误报告工具注销成功")
         except Exception as e:
-            print(f"注销错误报告工具失败: {e}")
+            print(f"✗ 错误报告工具注销失败: {e}")
     
     # 反注册UI面板（子面板）
     try:
         ui.unregister()
+        print("✓ UI面板注销成功")
     except Exception as e:
-        print(f"注销UI面板失败: {e}")
+        print(f"✗ UI面板注销失败: {e}")
     
     # 反注册MCP模块
     try:
         mcp.unregister()
+        print("✓ MCP模块注销成功")
     except Exception as e:
-        print(f"注销MCP模块失败: {e}")
+        print(f"✗ MCP模块注销失败: {e}")
+    
     # 反注册工作流模块
     try:
         workflow.unregister()
+        print("✓ 工作流模块注销成功")
     except Exception as e:
-        print(f"注销工作流模块失败: {e}")
+        print(f"✗ 工作流模块注销失败: {e}")
+    
     # 反注册性能模块
     try:
         performance.unregister()
+        print("✓ 性能模块注销成功")
     except Exception as e:
-        print(f"注销性能模块失败: {e}")
+        print(f"✗ 性能模块注销失败: {e}")
+    
     # 反注册渲染模块
     try:
         render.unregister()
+        print("✓ 渲染模块注销成功")
     except Exception as e:
-        print(f"注销渲染模块失败: {e}")
+        print(f"✗ 渲染模块注销失败: {e}")
+    
     # 反注册动画模块
     try:
         animation.unregister()
+        print("✓ 动画模块注销成功")
     except Exception as e:
-        print(f"注销动画模块失败: {e}")
+        print(f"✗ 动画模块注销失败: {e}")
+    
     # 反注册对象模块
     try:
         objects.unregister()
+        print("✓ 对象模块注销成功")
     except Exception as e:
-        print(f"注销对象模块失败: {e}")
+        print(f"✗ 对象模块注销失败: {e}")
+    
     # 反注册核心模块
     try:
         core.unregister()
+        print("✓ 核心模块注销成功")
     except Exception as e:
-        print(f"注销核心模块失败: {e}")
+        print(f"✗ 核心模块注销失败: {e}")
     
     # 反注册主面板
     if MATH_ANIM_PT_main_panel in registered_classes:
         try:
             bpy.utils.unregister_class(MATH_ANIM_PT_main_panel)
             registered_classes.remove(MATH_ANIM_PT_main_panel)
+            print("✓ 主面板注销成功")
         except Exception as e:
-            print(f"注销主面板失败: {e}")
-        
+            print(f"✗ 主面板注销失败: {e}")
+    
     # 反注册属性
     try:
         properties.unregister()
+        print("✓ 属性注销成功")
     except Exception as e:
-        print(f"注销属性失败: {e}")
+        print(f"✗ 属性注销失败: {e}")
 
 if __name__ == "__main__":
     register()

@@ -51,18 +51,14 @@ class MCPAnimationController(bpy.types.PropertyGroup):
         default=""
     )
     
-    def __init__(self):
-        super().__init__()
-        self._data_processor = None
-        self._render_optimizer = MCPRenderOptimizer()
-        self._workflow_manager = MCPWorkflowManager()
-        self._performance_analyzer = PerformanceAnalyzer()
-        self._performance_level = PerformanceLevel.NORMAL
+    # 移除自定义__init__方法，使用Blender的标准初始化
+    # 在需要时初始化内部对象
     
     def load_animation(self, context):
         """加载MCP动画数据"""
         try:
             # 开始性能监控
+            self._performance_analyzer = getattr(self, '_performance_analyzer', PerformanceAnalyzer())
             self._performance_analyzer.start_monitoring("Loading MCP Animation")
             
             if not self.mcp_file:
@@ -70,12 +66,19 @@ class MCPAnimationController(bpy.types.PropertyGroup):
             
             # 初始化数据处理器
             from .data_processor import MCPDataProcessor
-            self._data_processor = MCPDataProcessor()
+            self._data_processor = getattr(self, '_data_processor', None)
+            if not self._data_processor:
+                self._data_processor = MCPDataProcessor()
             
             # 加载动画数据
             success = self._data_processor.load_mcp_file(self.mcp_file)
             if not success:
                 raise RuntimeError("加载MCP文件失败")
+            
+            # 初始化其他组件
+            self._render_optimizer = getattr(self, '_render_optimizer', MCPRenderOptimizer())
+            self._workflow_manager = getattr(self, '_workflow_manager', MCPWorkflowManager())
+            self._performance_level = getattr(self, '_performance_level', PerformanceLevel.NORMAL)
             
             # 分析性能并优化
             self._performance_analyzer.optimize_performance(context, self._performance_level)
@@ -96,6 +99,22 @@ class MCPAnimationController(bpy.types.PropertyGroup):
     def apply_animation(self, context, armature):
         """应用MCP动画到骨骼装备"""
         try:
+            # 确保必要的组件已初始化
+            if not hasattr(self, '_data_processor') or not self._data_processor:
+                from .data_processor import MCPDataProcessor
+                self._data_processor = MCPDataProcessor()
+                
+            if not hasattr(self, '_workflow_manager') or not self._workflow_manager:
+                self._workflow_manager = MCPWorkflowManager()
+                
+            if not hasattr(self, '_render_optimizer') or not self._render_optimizer:
+                self._render_optimizer = MCPRenderOptimizer()
+                
+            if not hasattr(self, '_performance_analyzer') or not self._performance_analyzer:
+                self._performance_analyzer = PerformanceAnalyzer()
+                
+            self._performance_level = getattr(self, '_performance_level', PerformanceLevel.NORMAL)
+            
             # 开始性能监控
             self._performance_analyzer.start_monitoring("Applying MCP Animation")
             
@@ -168,19 +187,25 @@ class MCPAnimationController(bpy.types.PropertyGroup):
     def cleanup(self):
         """清理MCP动画数据和优化设置"""
         try:
+            # 确保必要的组件已初始化
+            if not hasattr(self, '_performance_analyzer') or not self._performance_analyzer:
+                self._performance_analyzer = PerformanceAnalyzer()
+                
             # 开始性能监控
             self._performance_analyzer.start_monitoring("Cleaning up MCP Animation")
             
             # 清理数据处理器
-            if self._data_processor:
+            if hasattr(self, '_data_processor') and self._data_processor:
                 self._data_processor.cleanup()
                 self._data_processor = None
             
             # 清理工作流程
-            self._workflow_manager.cleanup_workflow()
+            if hasattr(self, '_workflow_manager') and self._workflow_manager:
+                self._workflow_manager.cleanup_workflow()
             
             # 恢复渲染设置
-            self._render_optimizer.restore_original_settings()
+            if hasattr(self, '_render_optimizer') and self._render_optimizer:
+                self._render_optimizer.restore_original_settings()
             
             # 停止性能监控
             report = self._performance_analyzer.stop_monitoring()
@@ -209,4 +234,7 @@ class MCPAnimationController(bpy.types.PropertyGroup):
         Args:
             template_name: 模板名称
         """
+        # 确保工作流程管理器已初始化
+        if not hasattr(self, '_workflow_manager') or not self._workflow_manager:
+            self._workflow_manager = MCPWorkflowManager()
         return self._workflow_manager.save_mapping_template(template_name)

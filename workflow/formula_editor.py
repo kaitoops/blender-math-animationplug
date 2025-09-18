@@ -9,6 +9,12 @@ class FormulaEditor(bpy.types.PropertyGroup):
         description="Enter LaTeX formula here",
         default="e^{i\pi} + 1 = 0"
     )
+    
+    target_object_name = StringProperty(
+        name="Target Object Name",
+        description="Name of the target object to apply formula to",
+        default=""
+    )
 
     def draw(self, layout):
         """在UI中绘制公式编辑器"""

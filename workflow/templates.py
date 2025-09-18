@@ -15,7 +15,7 @@ class TemplateManager(bpy.types.PropertyGroup):
         default='FRACTAL'
     )
 
-    def apply(self):
+    def apply_template(self):
         """根据所选模板创建场景"""
         # 清理当前场景
         self._clear_scene()

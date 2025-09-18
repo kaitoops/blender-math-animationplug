@@ -7,11 +7,13 @@ from .style_switcher import StyleSwitcher
 from . import operators
 
 def register():
+    # 先注册属性类
     bpy.utils.register_class(MaterialSystem)
     bpy.utils.register_class(Lighting)
     bpy.utils.register_class(NPRRender)
     bpy.utils.register_class(SpecialEffects)
     bpy.utils.register_class(StyleSwitcher)
+    # 再注册操作符
     operators.register()
 
 def unregister():

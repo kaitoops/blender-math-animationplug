@@ -1,0 +1,32 @@
+# SSH密钥文件
+github_key
+github_key.pub
+github_blender
+github_blender.pub
+
+# Python缓存文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# ZIP文件（除了最终的插件文件）
+blender-math-animationplug-*.zip
+!blender-math-animationplug-full.zip
+
+# 测试和验证文件
+test_*.py
+verify_*.py
+check_*.py
+
+# 临时文件和备份
+*.tmp
+*.bak
+*.swp
+*~
+.DS_Store
+
+# 系统文件
+Thumbs.db

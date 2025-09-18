@@ -1,136 +1,110 @@
 # Blender数学动画插件
 
-[English Version](README_en.md) | [中文版本](README.md)
+## 简介
 
-## 项目简介
+Blender数学动画插件是一个集成工具集，旨在帮助用户在Blender中创建高质量的数学动画内容。该插件提供了从基础数学对象创建到复杂动画制作的完整解决方案。
 
-这是一个专为Blender设计的数学动画插件，旨在简化数学概念的可视化和动画制作过程。该插件提供了丰富的工具和功能，帮助用户创建高质量的数学教育内容和科学可视化作品。
+## 功能特性
 
-## 主要功能
+### 核心功能模块
 
-### 1. 基础数学对象
-- 2D/3D坐标系统
-- 向量场可视化
-- 概率分布图形
-- LaTeX公式渲染
-- 曲线和曲面绘制
+1. **数学对象创建**
+   - 二维曲线绘制工具
+   - 三维曲面生成器
+   - 向量场可视化
+   - 概率分布图表
+   - LaTeX公式渲染
+   - 坐标系构建器
 
-### 2. 动画系统
-- 公式演化动画
-- 形态变换效果
-- 路径绘制动画
-- 流体动画效果
-- 动作捕捉(MCP)支持
+2. **动画制作工具**
+   - 路径绘制动画
+   - 形状变形动画
+   - 公式演变动画
+   - 流体模拟动画
+   - 几何变换动画
 
-### 3. 渲染功能
-- 材质系统
-- 照明控制
-- 非真实感渲染
-- 特殊效果
-- 风格切换器
+3. **渲染与风格化**
+   - 材质预设系统
+   - 灯光预设管理
+   - NPR非真实感渲染
+   - 特效应用系统
+   - 风格切换器
 
-### 4. 性能优化
-- GPU加速
-- 网格简化
-- 实时预览
-- 批量导出
+4. **性能优化**
+   - 实时预览优化
+   - 网格简化工具
+   - GPU加速支持
+   - 批量导出功能
 
-### 5. 工作流程
-- 公式编辑器
-- 交互式教程
-- 错误诊断
-- 模板系统
+5. **工作流优化**
+   - 模板系统
+   - 公式编辑器
+   - 交互式教程
+   - 错误诊断工具
+
+6. **MCP动画控制**
+   - 动画控制器
+   - 数据处理器
+   - 渲染优化器
+   - 工作流管理器
+
+### 最新修复
+
+- **模块注册问题修复**：解决了插件中"property not found"和"unknown operator"错误，确保所有属性和操作符能正确注册和访问
+- **UI面板操作符属性访问问题修复**：解决了在UI面板中直接访问操作符实例属性导致的AttributeError错误，确保公式编辑器能正常工作
+- **操作符属性缺失问题修复**：解决了ShowFormulaEditorOperator操作符缺少target_object_name属性的问题，确保公式编辑器能正常工作
+- **MCPAnimationController初始化问题修复**：解决了访问MCP控制器时的初始化错误，确保MCP面板能正常显示和使用
+- **循环导入问题修复**：解决了插件加载时的循环导入错误，确保插件能正常注册和使用
+- **操作符名称一致性**：修复了UI面板中操作符调用名称不匹配的问题
+- **方法名称一致性**：统一了操作符调用的方法名称
+- **属性定义完善**：添加了缺失的属性定义，确保UI正常显示
+- **属性访问修复**：修正了UI面板中的属性访问逻辑
+
+详细修复说明请查看 [FIXES_README.md](FIXES_README.md) 文件。
 
 ## 安装说明
 
-### 方法一：使用打包好的zip文件安装（推荐）
-1. 下载最新版本的插件压缩包 [blender-math-animationplug.zip](blender-math-animationplug.zip)
-2. 在Blender中打开首选项（Edit > Preferences）
-3. 点击"Add-ons"选项卡
-4. 点击"Install..."按钮
-5. 选择下载的插件压缩包
-6. 启用插件（勾选复选框）
+1. 下载最新的插件ZIP文件：[blender-math-animationplug-full.zip](blender-math-animationplug-full.zip)
+2. 打开Blender，进入 `编辑` → `首选项` → `插件`
+3. 点击 `安装...` 按钮，选择下载的ZIP文件
+4. 安装后勾选插件启用
+5. 在3D视图中按 `N` 键打开右侧属性面板，选择"数学动画"选项卡
 
-### 方法二：手动打包安装
-1. 克隆或下载本仓库到本地
-2. 运行打包脚本生成zip文件：
-   ```bash
-   python package_addon.py
-   ```
-3. 按照方法一的步骤安装生成的zip文件
+详细安装说明请查看 [INSTALL_INSTRUCTIONS.md](INSTALL_INSTRUCTIONS.md) 文件。
 
-### 方法三：开发模式安装
-1. 克隆本仓库到本地
-2. 在Blender的插件设置中，点击"Install..."按钮
-3. 选择仓库根目录下的[__init__.py](file:///G:/GitHubcodecollection/blender-math-animationplug/__init__.py)文件
-4. 启用插件
+## 使用方法
 
-## 故障排除
+1. 在3D视图的UI面板中找到"数学动画"选项卡
+2. 根据需要选择相应的功能模块
+3. 使用各模块提供的工具创建数学对象和动画
+4. 应用渲染预设和风格化效果
+5. 使用性能优化工具提高工作效率
 
-### 常见问题及解决方案
-
-1. **插件无法启用，提示循环导入错误**
-   - 确保使用的是最新版本的插件
-   - 删除Blender插件目录中的旧版本插件
-   - 重新安装插件
-
-2. **插件启用后UI面板不显示**
-   - 检查Blender的3D视图右侧的UI面板是否已展开
-   - 查看"数学动画"选项卡是否在UI面板中显示
-
-3. **缺少依赖模块（如psutil）**
-   - 插件会自动检测依赖项并在缺少时给出提示
-   - 按照提示安装所需的Python包
-
-4. **LaTeX公式渲染问题**
-   - 确保系统已安装LaTeX发行版（如TeX Live或MiKTeX）
-   - 检查插件设置中的LaTeX路径配置
-
-## 使用要求
+## 依赖项
 
 - Blender 3.0或更高版本
-- Python 3.7或更高版本
-- 建议使用支持GPU的显卡以获得最佳性能
+- Python 3.7或更高版本（随Blender提供）
+- numpy (通过Blender内置Python环境)
+- matplotlib (可选，用于高级图表功能)
 
 ## 文档
 
-- [用户指南 (中文)](docs/mcp_user_guide.md) | [User Guide (English)](docs/mcp_user_guide_en.md)
-- [开发者文档 (中文)](docs/mcp_developer_guide.md) | [Developer Documentation (English)](docs/mcp_developer_guide_en.md)
+- [用户指南](docs/mcp_user_guide.md) - 面向最终用户的使用手册
+- [开发者指南](docs/mcp_developer_guide.md) - 面向开发者的扩展开发文档
+- [安装说明](INSTALL_INSTRUCTIONS.md) - 详细的安装和配置指南
+- [修复说明](FIXES_README.md) - 插件问题修复记录
 
-## 贡献指南
+## 贡献
 
-欢迎提交问题报告和功能建议！如果您想为项目做出贡献：
-
-1. Fork本仓库
-2. 创建您的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交您的更改 (`git commit -m '添加一些特性'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启一个Pull Request
+欢迎提交Issue和Pull Request来改进这个插件。
 
 ## 许可证
 
-本项目采用MIT许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
+本项目采用MIT许可证 - 详情请见 [LICENSE](LICENSE) 文件。
 
-```
-MIT License
+## 技术支持
 
-Copyright (c) 2024 [作者名称]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+如遇到问题，请：
+1. 查看系统控制台的错误信息
+2. 使用插件内的"保存错误报告"功能
+3. 提交Issue到项目仓库

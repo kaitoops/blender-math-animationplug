@@ -1,4 +1,5 @@
 import bpy
+from bpy.props import StringProperty
 
 class ApplyTemplateOperator(bpy.types.Operator):
     bl_idname = "math_anim.apply_template"
@@ -12,9 +13,18 @@ class ApplyTemplateOperator(bpy.types.Operator):
 class ShowFormulaEditorOperator(bpy.types.Operator):
     bl_idname = "math_anim.show_formula_editor"
     bl_label = "Show Formula Editor"
+    
+    target_object_name: StringProperty(
+        name="Target Object Name",
+        description="Name of the target object to apply formula to",
+        default=""
+    )
 
     def execute(self, context):
         props = context.scene.math_anim_properties.workflow.formula_editor
+        # 如果提供了目标对象名称，则设置到公式编辑器属性中
+        if self.target_object_name:
+            props.target_object_name = self.target_object_name
         # Logic to show the formula editor UI
         return {'FINISHED'}
 

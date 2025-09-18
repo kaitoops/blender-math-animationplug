@@ -1,12 +1,12 @@
 import bpy
 
-class EnableDisableRealtimePreviewOperator(bpy.types.Operator):
-    bl_idname = "math_anim.enable_disable_realtime_preview"
-    bl_label = "Enable/Disable Realtime Preview"
+class ApplyRealtimePreviewOperator(bpy.types.Operator):
+    bl_idname = "math_anim.apply_realtime_preview"
+    bl_label = "Apply Realtime Preview"
 
     def execute(self, context):
         props = context.scene.math_anim_properties.performance.realtime_preview
-        props.enabled = not props.enabled
+        props.apply()
         return {'FINISHED'}
 
 class ApplyMeshSimplificationOperator(bpy.types.Operator):
@@ -20,13 +20,13 @@ class ApplyMeshSimplificationOperator(bpy.types.Operator):
             props.apply(obj)
         return {'FINISHED'}
 
-class EnableDisableGPUAccelerationOperator(bpy.types.Operator):
-    bl_idname = "math_anim.enable_disable_gpu_acceleration"
-    bl_label = "Enable/Disable GPU Acceleration"
+class ApplyGPUAccelerationOperator(bpy.types.Operator):
+    bl_idname = "math_anim.apply_gpu_acceleration"
+    bl_label = "Apply GPU Acceleration"
 
     def execute(self, context):
         props = context.scene.math_anim_properties.performance.gpu_acceleration
-        props.enabled = not props.enabled
+        props.apply()
         return {'FINISHED'}
 
 class BatchExportOperator(bpy.types.Operator):
@@ -40,9 +40,9 @@ class BatchExportOperator(bpy.types.Operator):
 
 
 _classes = [
-    EnableDisableRealtimePreviewOperator,
+    ApplyRealtimePreviewOperator,
     ApplyMeshSimplificationOperator,
-    EnableDisableGPUAccelerationOperator,
+    ApplyGPUAccelerationOperator,
     BatchExportOperator,
 ]
 

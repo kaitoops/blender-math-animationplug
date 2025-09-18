@@ -33,7 +33,7 @@ class BatchExport(bpy.types.PropertyGroup):
         default=250
     )
 
-    def execute(self):
+    def execute_export(self):
         """执行批量导出"""
         scene = bpy.context.scene
         
