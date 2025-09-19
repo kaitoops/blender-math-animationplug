@@ -4,14 +4,14 @@ from bpy.props import FloatProperty, EnumProperty
 class MeshSimplification(bpy.types.PropertyGroup):
     """网格简化工具，用于降低模型复杂度"""
     
-    ratio = FloatProperty(
+    ratio: FloatProperty(
         name="Ratio",
         description="The ratio of faces to keep. 0.1 means 10% of original faces",
         default=0.5,
         min=0.0, max=1.0
     )
     
-    method = EnumProperty(
+    method: EnumProperty(
         name="Method",
         description="Simplification algorithm",
         items=[

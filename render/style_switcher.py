@@ -4,7 +4,7 @@ from bpy.props import EnumProperty
 class StyleSwitcher(bpy.types.PropertyGroup):
     """一键切换整体视觉风格"""
     
-    style = EnumProperty(
+    style: EnumProperty(
         name="Visual Style",
         description="Switch between different visual styles",
         items=[

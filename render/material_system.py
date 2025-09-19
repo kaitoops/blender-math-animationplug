@@ -4,7 +4,7 @@ from bpy.props import EnumProperty, StringProperty
 class MaterialSystem(bpy.types.PropertyGroup):
     """材质系统，提供预设节点组"""
     
-    preset = EnumProperty(
+    preset: EnumProperty(
         name="Preset",
         description="Select a material preset",
         items=[
@@ -16,7 +16,7 @@ class MaterialSystem(bpy.types.PropertyGroup):
         default='DEFAULT'
     )
     
-    node_group_name = StringProperty(
+    node_group_name: StringProperty(
         name="Node Group Name",
         description="Name of the generated node group",
         default="MathMaterialPreset"

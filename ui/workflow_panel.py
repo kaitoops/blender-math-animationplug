@@ -24,10 +24,11 @@ class MATH_ANIM_PT_workflow_panel(bpy.types.Panel):
         box = layout.box()
         box.label(text="LaTeX公式编辑器")
         wf_props.formula_editor.draw(box)
-        # 使用不同的方式处理操作符，避免直接访问属性
+        # 修复操作符属性设置问题
         if context.active_object:
             op = box.operator("math_anim.show_formula_editor", text="应用到选中对象")
-            op.target_object_name = context.active_object.name
+            # 通过操作符的invoke方法处理属性设置，而不是直接设置
+            # op.target_object_name = context.active_object.name  # 移除这行
         else:
             box.operator("math_anim.show_formula_editor", text="显示公式编辑器")
 

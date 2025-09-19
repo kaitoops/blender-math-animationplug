@@ -27,6 +27,12 @@ class ShowFormulaEditorOperator(bpy.types.Operator):
             props.target_object_name = self.target_object_name
         # Logic to show the formula editor UI
         return {'FINISHED'}
+        
+    def invoke(self, context, event):
+        # 在invoke方法中处理上下文相关的属性设置
+        if not self.target_object_name and context.active_object:
+            self.target_object_name = context.active_object.name
+        return self.execute(context)
 
 class StartInteractiveTutorialOperator(bpy.types.Operator):
     bl_idname = "math_anim.start_interactive_tutorial"

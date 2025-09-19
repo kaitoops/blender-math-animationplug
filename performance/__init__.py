@@ -6,15 +6,8 @@ from .batch_export import BatchExport
 from . import operators
 
 def register():
-    bpy.utils.register_class(RealtimePreview)
-    bpy.utils.register_class(MeshSimplification)
-    bpy.utils.register_class(GPUAcceleration)
-    bpy.utils.register_class(BatchExport)
+    # 只注册操作符，属性类在properties.py中注册
     operators.register()
 
 def unregister():
     operators.unregister()
-    bpy.utils.unregister_class(BatchExport)
-    bpy.utils.unregister_class(GPUAcceleration)
-    bpy.utils.unregister_class(MeshSimplification)
-    bpy.utils.unregister_class(RealtimePreview)

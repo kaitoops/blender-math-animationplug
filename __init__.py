@@ -9,6 +9,8 @@ bl_info = {
 }
 
 import bpy
+import os
+import shutil
 
 # --- UI 面板定义 ---
 
@@ -48,6 +50,224 @@ class MATH_ANIM_OT_save_error_report(bpy.types.Operator):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
+# --- 测试修复操作 ---
+
+class MATH_ANIM_OT_test_fixes(bpy.types.Operator):
+    """测试插件修复是否正确的操作符"""
+    bl_idname = "math_anim.test_fixes"
+    bl_label = "Test Plugin Fixes"
+    
+    def execute(self, context):
+        self.test_plugin_registration()
+        return {'FINISHED'}
+        
+    def test_plugin_registration(self):
+        """测试插件注册是否正确"""
+        try:
+            # 检查主属性组是否存在
+            if hasattr(bpy.types.Scene, 'math_anim_properties'):
+                print("✓ 主属性组已注册")
+                self.report({'INFO'}, "主属性组已注册")
+            else:
+                print("✗ 主属性组未注册")
+                self.report({'ERROR'}, "主属性组未注册")
+                
+            # 检查性能模块属性
+            scene = context.scene
+            if hasattr(scene, 'math_anim_properties'):
+                perf_props = scene.math_anim_properties.performance
+                if hasattr(perf_props, 'realtime_preview'):
+                    print("✓ RealtimePreview属性已注册")
+                    self.report({'INFO'}, "RealtimePreview属性已注册")
+                    # 检查属性是否存在
+                    if hasattr(perf_props.realtime_preview, 'use_simplify'):
+                        print("✓ use_simplify属性存在")
+                        self.report({'INFO'}, "use_simplify属性存在")
+                    else:
+                        print("✗ use_simplify属性不存在")
+                        self.report({'ERROR'}, "use_simplify属性不存在")
+                        
+                    if hasattr(perf_props.realtime_preview, 'display_mode'):
+                        print("✓ display_mode属性存在")
+                        self.report({'INFO'}, "display_mode属性存在")
+                    else:
+                        print("✗ display_mode属性不存在")
+                        self.report({'ERROR'}, "display_mode属性不存在")
+                else:
+                    print("✗ RealtimePreview属性未注册")
+                    self.report({'ERROR'}, "RealtimePreview属性未注册")
+                    
+                if hasattr(perf_props, 'mesh_simplification'):
+                    print("✓ MeshSimplification属性已注册")
+                    self.report({'INFO'}, "MeshSimplification属性已注册")
+                else:
+                    print("✗ MeshSimplification属性未注册")
+                    self.report({'ERROR'}, "MeshSimplification属性未注册")
+                    
+                if hasattr(perf_props, 'gpu_acceleration'):
+                    print("✓ GPUAcceleration属性已注册")
+                    self.report({'INFO'}, "GPUAcceleration属性已注册")
+                else:
+                    print("✗ GPUAcceleration属性未注册")
+                    self.report({'ERROR'}, "GPUAcceleration属性未注册")
+                    
+                if hasattr(perf_props, 'batch_export'):
+                    print("✓ BatchExport属性已注册")
+                    self.report({'INFO'}, "BatchExport属性已注册")
+                else:
+                    print("✗ BatchExport属性未注册")
+                    self.report({'ERROR'}, "BatchExport属性未注册")
+            else:
+                print("✗ math_anim_properties不存在")
+                self.report({'ERROR'}, "math_anim_properties不存在")
+                
+            # 检查工作流模块属性
+            if hasattr(scene, 'math_anim_properties'):
+                wf_props = scene.math_anim_properties.workflow
+                if hasattr(wf_props, 'templates'):
+                    print("✓ TemplateManager属性已注册")
+                    self.report({'INFO'}, "TemplateManager属性已注册")
+                else:
+                    print("✗ TemplateManager属性未注册")
+                    self.report({'ERROR'}, "TemplateManager属性未注册")
+                    
+                if hasattr(wf_props, 'formula_editor'):
+                    print("✓ FormulaEditor属性已注册")
+                    self.report({'INFO'}, "FormulaEditor属性已注册")
+                    # 检查属性是否存在
+                    if hasattr(wf_props.formula_editor, 'formula_text'):
+                        print("✓ formula_text属性存在")
+                        self.report({'INFO'}, "formula_text属性存在")
+                    else:
+                        print("✗ formula_text属性不存在")
+                        self.report({'ERROR'}, "formula_text属性不存在")
+                        
+                    if hasattr(wf_props.formula_editor, 'target_object_name'):
+                        print("✓ target_object_name属性存在")
+                        self.report({'INFO'}, "target_object_name属性存在")
+                    else:
+                        print("✗ target_object_name属性不存在")
+                        self.report({'ERROR'}, "target_object_name属性不存在")
+                else:
+                    print("✗ FormulaEditor属性未注册")
+                    self.report({'ERROR'}, "FormulaEditor属性未注册")
+                    
+            # 检查操作符是否注册
+            try:
+                # 尝试访问性能模块操作符
+                bpy.ops.math_anim.apply_realtime_preview
+                print("✓ apply_realtime_preview操作符已注册")
+                self.report({'INFO'}, "apply_realtime_preview操作符已注册")
+            except:
+                print("✗ apply_realtime_preview操作符未注册")
+                self.report({'ERROR'}, "apply_realtime_preview操作符未注册")
+                
+            try:
+                bpy.ops.math_anim.apply_mesh_simplification
+                print("✓ apply_mesh_simplification操作符已注册")
+                self.report({'INFO'}, "apply_mesh_simplification操作符已注册")
+            except:
+                print("✗ apply_mesh_simplification操作符未注册")
+                self.report({'ERROR'}, "apply_mesh_simplification操作符未注册")
+                
+            try:
+                bpy.ops.math_anim.apply_gpu_acceleration
+                print("✓ apply_gpu_acceleration操作符已注册")
+                self.report({'INFO'}, "apply_gpu_acceleration操作符已注册")
+            except:
+                print("✗ apply_gpu_acceleration操作符未注册")
+                self.report({'ERROR'}, "apply_gpu_acceleration操作符未注册")
+                
+            try:
+                bpy.ops.math_anim.batch_export
+                print("✓ batch_export操作符已注册")
+                self.report({'INFO'}, "batch_export操作符已注册")
+            except:
+                print("✗ batch_export操作符未注册")
+                self.report({'ERROR'}, "batch_export操作符未注册")
+                
+            try:
+                bpy.ops.math_anim.apply_template
+                print("✓ apply_template操作符已注册")
+                self.report({'INFO'}, "apply_template操作符已注册")
+            except:
+                print("✗ apply_template操作符未注册")
+                self.report({'ERROR'}, "apply_template操作符未注册")
+                
+            try:
+                bpy.ops.math_anim.show_formula_editor
+                print("✓ show_formula_editor操作符已注册")
+                self.report({'INFO'}, "show_formula_editor操作符已注册")
+            except:
+                print("✗ show_formula_editor操作符未注册")
+                self.report({'ERROR'}, "show_formula_editor操作符未注册")
+                
+        except Exception as e:
+            print(f"测试过程中出现错误: {e}")
+            self.report({'ERROR'}, f"测试过程中出现错误: {e}")
+            
+        return {'FINISHED'}
+
+# --- 清理操作 ---
+
+class MATH_ANIM_OT_cleanup_old_plugins(bpy.types.Operator):
+    """清理旧插件残留文件操作符"""
+    bl_idname = "math_anim.cleanup_old_plugins"
+    bl_label = "Cleanup Old Plugins"
+    
+    def execute(self, context):
+        try:
+            # 获取插件路径
+            addon_path = bpy.utils.user_resource('SCRIPTS', "addons")
+            
+            self.report({'INFO'}, f"插件目录: {addon_path}")
+            
+            # 清理残留的Python文件
+            residual_files = [
+                "properties.py",
+                "error_reporter.py",
+                "package_addon.py",
+                "package_full_addon.py",
+                "__init__.py",
+                "LICENSE",
+                "README.md",
+                "README_en.md"
+            ]
+            
+            for file_name in residual_files:
+                file_path = os.path.join(addon_path, file_name)
+                if os.path.exists(file_path):
+                    try:
+                        os.remove(file_path)
+                        self.report({'INFO'}, f"已删除残留文件: {file_name}")
+                    except Exception as e:
+                        self.report({'ERROR'}, f"删除文件 {file_name} 时出错: {e}")
+            
+            # 清理残留的目录
+            residual_dirs = [
+                "blender-math-animationplug-full",
+                "blender-mcp-main",
+                "blender-math-animationplug",
+                "blender-math-animationplug-core",
+                "blender-math-animationplug-objects",
+                "blender-math-animationplug-extracted"
+            ]
+            
+            for dir_name in residual_dirs:
+                dir_path = os.path.join(addon_path, dir_name)
+                if os.path.exists(dir_path):
+                    try:
+                        shutil.rmtree(dir_path)
+                        self.report({'INFO'}, f"已删除残留目录: {dir_name}")
+                    except Exception as e:
+                        self.report({'ERROR'}, f"删除目录 {dir_name} 时出错: {e}")
+            
+            self.report({'INFO'}, "清理完成!")
+            return {'FINISHED'}
+        except Exception as e:
+            self.report({'ERROR'}, f"清理过程中出错: {e}")
+            return {'CANCELLED'}
+
 # --- 注册与反注册 ---
 
 # 跟踪已注册的类
@@ -85,6 +305,13 @@ def register():
         registered_classes.append(MATH_ANIM_PT_main_panel)
     except Exception as e:
         print(f"注册主面板失败: {e}")
+        
+    # 注册测试操作符
+    try:
+        bpy.utils.register_class(MATH_ANIM_OT_test_fixes)
+        registered_classes.append(MATH_ANIM_OT_test_fixes)
+    except Exception as e:
+        print(f"注册测试操作符失败: {e}")
         
     # 注册核心模块
     try:
@@ -134,8 +361,23 @@ def register():
         registered_classes.append(MATH_ANIM_OT_save_error_report)
     except Exception as e:
         print(f"注册错误报告工具失败: {e}")
+        
+    # 注册清理操作符
+    try:
+        bpy.utils.register_class(MATH_ANIM_OT_cleanup_old_plugins)
+        registered_classes.append(MATH_ANIM_OT_cleanup_old_plugins)
+    except Exception as e:
+        print(f"注册清理操作符失败: {e}")
 
 def unregister():
+    # 反注册清理操作符
+    if MATH_ANIM_OT_cleanup_old_plugins in registered_classes:
+        try:
+            bpy.utils.unregister_class(MATH_ANIM_OT_cleanup_old_plugins)
+            registered_classes.remove(MATH_ANIM_OT_cleanup_old_plugins)
+        except Exception as e:
+            print(f"注销清理操作符失败: {e}")
+    
     # 反注册错误报告工具
     if MATH_ANIM_OT_save_error_report in registered_classes:
         try:
@@ -193,6 +435,14 @@ def unregister():
             registered_classes.remove(MATH_ANIM_PT_main_panel)
         except Exception as e:
             print(f"注销主面板失败: {e}")
+            
+    # 反注册测试操作符
+    if MATH_ANIM_OT_test_fixes in registered_classes:
+        try:
+            bpy.utils.unregister_class(MATH_ANIM_OT_test_fixes)
+            registered_classes.remove(MATH_ANIM_OT_test_fixes)
+        except Exception as e:
+            print(f"注销测试操作符失败: {e}")
         
     # 反注册属性
     try:

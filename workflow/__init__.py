@@ -6,15 +6,8 @@ from .interactive_tutorial import InteractiveTutorial
 from . import operators
 
 def register():
-    bpy.utils.register_class(TemplateManager)
-    bpy.utils.register_class(FormulaEditor)
-    bpy.utils.register_class(ErrorDiagnostic)
-    bpy.utils.register_class(InteractiveTutorial)
+    # 只注册操作符，属性类在properties.py中注册
     operators.register()
 
 def unregister():
     operators.unregister()
-    bpy.utils.unregister_class(InteractiveTutorial)
-    bpy.utils.unregister_class(ErrorDiagnostic)
-    bpy.utils.unregister_class(FormulaEditor)
-    bpy.utils.unregister_class(TemplateManager)

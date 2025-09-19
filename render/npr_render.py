@@ -4,13 +4,13 @@ from bpy.props import BoolProperty, FloatVectorProperty
 class NPRRender(bpy.types.PropertyGroup):
     """NPR（非真实感渲染）设置"""
     
-    use_outline = BoolProperty(
+    use_outline: BoolProperty(
         name="Use Outline",
         description="Enable freestyle outlines for a comic book look",
         default=False
     )
     
-    outline_color = FloatVectorProperty(
+    outline_color: FloatVectorProperty(
         name="Outline Color",
         description="Color of the outlines",
         subtype='COLOR',

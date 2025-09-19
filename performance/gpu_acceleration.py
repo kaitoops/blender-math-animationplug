@@ -4,7 +4,7 @@ from bpy.props import BoolProperty
 class GPUAcceleration(bpy.types.PropertyGroup):
     """GPU加速设置"""
     
-    use_gpu = BoolProperty(
+    use_gpu: BoolProperty(
         name="Use GPU for Rendering",
         description="Enable GPU for Cycles rendering if available",
         default=False

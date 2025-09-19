@@ -4,20 +4,20 @@ from bpy.props import BoolProperty, FloatProperty
 class SpecialEffects(bpy.types.PropertyGroup):
     """后期处理特效"""
     
-    use_bloom = BoolProperty(
+    use_bloom: BoolProperty(
         name="Use Bloom",
         description="Enable bloom effect for emissive materials",
         default=False
     )
     
-    bloom_intensity = FloatProperty(
+    bloom_intensity: FloatProperty(
         name="Bloom Intensity",
         description="Intensity of the bloom effect",
         default=0.05,
         min=0.0
     )
     
-    use_motion_blur = BoolProperty(
+    use_motion_blur: BoolProperty(
         name="Use Motion Blur",
         description="Enable motion blur for moving objects",
         default=False

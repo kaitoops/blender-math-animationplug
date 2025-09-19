@@ -4,7 +4,7 @@ from bpy.props import EnumProperty
 class TemplateManager(bpy.types.PropertyGroup):
     """一键模板，快速创建常见场景"""
     
-    template = EnumProperty(
+    template: EnumProperty(
         name="Template",
         description="Select a scene template to create",
         items=[

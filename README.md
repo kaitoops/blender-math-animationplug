@@ -50,6 +50,8 @@ Blender数学动画插件是一个集成工具集，旨在帮助用户在Blender
 
 ### 最新修复
 
+- **插件模块化结构问题修复**：解决了插件被错误地解压为多个独立模块的问题，确保插件作为一个完整的单元正确安装
+- **UI面板操作符属性设置问题修复**：解决了在UI面板中设置操作符属性时出现的AttributeError错误，确保公式编辑器能正常工作
 - **模块注册问题修复**：解决了插件中"property not found"和"unknown operator"错误，确保所有属性和操作符能正确注册和访问
 - **UI面板操作符属性访问问题修复**：解决了在UI面板中直接访问操作符实例属性导致的AttributeError错误，确保公式编辑器能正常工作
 - **操作符属性缺失问题修复**：解决了ShowFormulaEditorOperator操作符缺少target_object_name属性的问题，确保公式编辑器能正常工作
@@ -59,8 +61,9 @@ Blender数学动画插件是一个集成工具集，旨在帮助用户在Blender
 - **方法名称一致性**：统一了操作符调用的方法名称
 - **属性定义完善**：添加了缺失的属性定义，确保UI正常显示
 - **属性访问修复**：修正了UI面板中的属性访问逻辑
+- **V2版本修复**：解决了"Writing to ID classes in this context is not allowed"错误，通过修复UI面板中直接修改属性的问题，并确保所有操作符和属性正确注册
 
-详细修复说明请查看 [FIXES_README.md](FIXES_README.md) 文件。
+详细修复说明请查看 [FIXES_README.md](FIXES_README.md) 和 [FIXES_V2_README.md](FIXES_V2_README.md) 文件。
 
 ## 安装说明
 
@@ -70,7 +73,7 @@ Blender数学动画插件是一个集成工具集，旨在帮助用户在Blender
 4. 安装后勾选插件启用
 5. 在3D视图中按 `N` 键打开右侧属性面板，选择"数学动画"选项卡
 
-详细安装说明请查看 [INSTALL_INSTRUCTIONS.md](INSTALL_INSTRUCTIONS.md) 文件。
+详细安装说明请查看 [INSTALL_INSTRUCTIONS.md](INSTALL_INSTRUCTIONS.md) 和 [COMPLETE_INSTALLATION_GUIDE.md](COMPLETE_INSTALLATION_GUIDE.md) 文件。
 
 ## 使用方法
 
@@ -93,6 +96,8 @@ Blender数学动画插件是一个集成工具集，旨在帮助用户在Blender
 - [开发者指南](docs/mcp_developer_guide.md) - 面向开发者的扩展开发文档
 - [安装说明](INSTALL_INSTRUCTIONS.md) - 详细的安装和配置指南
 - [修复说明](FIXES_README.md) - 插件问题修复记录
+- [V2修复说明](FIXES_V2_README.md) - 最新问题修复记录
+- [完整安装指南](COMPLETE_INSTALLATION_GUIDE.md) - 完整的安装和使用指南
 
 ## 贡献
 

@@ -5,13 +5,13 @@ from bpy.props import StringProperty, EnumProperty, IntProperty
 class BatchExport(bpy.types.PropertyGroup):
     """批量导出动画序列"""
     
-    output_path = StringProperty(
+    output_path: StringProperty(
         name="Output Path",
         description="Directory to save the exported frames",
         subtype='DIR_PATH'
     )
     
-    file_format = EnumProperty(
+    file_format: EnumProperty(
         name="File Format",
         description="Output file format",
         items=[
@@ -21,13 +21,13 @@ class BatchExport(bpy.types.PropertyGroup):
         default='PNG'
     )
     
-    start_frame = IntProperty(
+    start_frame: IntProperty(
         name="Start Frame",
         description="Start frame for export",
         default=1
     )
     
-    end_frame = IntProperty(
+    end_frame: IntProperty(
         name="End Frame",
         description="End frame for export",
         default=250

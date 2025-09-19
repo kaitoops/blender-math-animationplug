@@ -7,19 +7,8 @@ from .style_switcher import StyleSwitcher
 from . import operators
 
 def register():
-    # 先注册属性类
-    bpy.utils.register_class(MaterialSystem)
-    bpy.utils.register_class(Lighting)
-    bpy.utils.register_class(NPRRender)
-    bpy.utils.register_class(SpecialEffects)
-    bpy.utils.register_class(StyleSwitcher)
-    # 再注册操作符
+    # 只注册操作符，属性类在properties.py中注册
     operators.register()
 
 def unregister():
     operators.unregister()
-    bpy.utils.unregister_class(StyleSwitcher)
-    bpy.utils.unregister_class(SpecialEffects)
-    bpy.utils.unregister_class(NPRRender)
-    bpy.utils.unregister_class(Lighting)
-    bpy.utils.unregister_class(MaterialSystem)

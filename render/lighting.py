@@ -4,7 +4,7 @@ from bpy.props import EnumProperty, FloatProperty
 class Lighting(bpy.types.PropertyGroup):
     """灯光系统，用于创建和管理灯光"""
     
-    preset = EnumProperty(
+    preset: EnumProperty(
         name="Preset",
         description="Select a lighting preset",
         items=[
@@ -15,7 +15,7 @@ class Lighting(bpy.types.PropertyGroup):
         default='THREE_POINT'
     )
     
-    intensity = FloatProperty(
+    intensity: FloatProperty(
         name="Intensity",
         description="Overall light intensity multiplier",
         default=1.0,

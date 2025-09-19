@@ -4,13 +4,13 @@ from bpy.props import BoolProperty, EnumProperty
 class RealtimePreview(bpy.types.PropertyGroup):
     """实时预览设置，用于优化视口性能"""
     
-    use_simplify = BoolProperty(
+    use_simplify: BoolProperty(
         name="Use Simplify",
         description="Enable global simplification for the viewport",
         default=False
     )
     
-    display_mode = EnumProperty(
+    display_mode: EnumProperty(
         name="Display Mode",
         description="How objects are displayed in the viewport",
         items=[

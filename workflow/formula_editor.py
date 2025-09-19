@@ -4,13 +4,13 @@ from bpy.props import StringProperty
 class FormulaEditor(bpy.types.PropertyGroup):
     """一个简单的公式编辑器，用于实时编辑LaTeX公式"""
     
-    formula_text = StringProperty(
+    formula_text: StringProperty(
         name="Formula",
         description="Enter LaTeX formula here",
-        default="e^{i\pi} + 1 = 0"
+        default="e^{i\\pi} + 1 = 0"
     )
     
-    target_object_name = StringProperty(
+    target_object_name: StringProperty(
         name="Target Object Name",
         description="Name of the target object to apply formula to",
         default=""
